@@ -12,6 +12,11 @@
       "DBConnectionString": "jdbc:sqlserver://localhost:1433;databaseName=T_work",
       "DBUserName": "sa",
       "DBUserPass": "7777"
+    },{
+      "DBDriver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+      "DBConnectionString": "jdbc:sqlserver://localhost:1433;databaseName=T_work",
+      "DBUserName": "sa",
+      "DBUserPass": "7777"
     }
   ],
   "EntityPackage": "Entity.",
@@ -22,6 +27,10 @@
     },
     {
       "EntityName": "Bean_T_YModel",
+      "EntityPrimaryKey": "C_ID"
+    },
+    {
+      "EntityName": "Bean_T_YVersion",
       "EntityPrimaryKey": "C_ID"
     }
   ]

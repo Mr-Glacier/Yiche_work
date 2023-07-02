@@ -5,6 +5,16 @@ public class Bean_T_YModel {
     private String C_ModelID;
     private String C_ModelName;
     private String C_ModelURL;
+    private String C_BrandID;
+
+    public String get_C_BrandID() {
+        return this.C_BrandID;
+    }
+
+    public void set_C_BrandID(String C_BrandID) {
+        this.C_BrandID = C_BrandID;
+    }
+
 
     public int get_C_ID() {
         return C_ID;
