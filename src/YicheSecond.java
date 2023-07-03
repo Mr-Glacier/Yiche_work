@@ -8,22 +8,23 @@ import java.net.URL;
 public class YicheSecond {
     public static void main(String[] args) {
         try {
-            String Yicheurl2 = "https://car.yiche.com/xuanchegongju/?mid=9";
+            String Yicheurl2 = "https://car.yiche.com/xuanchegongju/?mid=445";
             Document document2 = Jsoup.parse(new URL(Yicheurl2).openStream(), "UTF-8", Yicheurl2);
             Element idEL = document2.getElementById("pagination-list");
+            System.out.println(idEL);
             Elements ItemModel = idEL.select(".pagenation-box.ssr-box");
             Elements ItemModel1 = ItemModel.select(".link-list.pg-item");
-            //System.out.println(ItemModel1);
+            //System.out.println(ItemModel1.size());
             Elements ItemModel2 = ItemModel1.select("a");
-            if (ItemModel2.size() >= 1) {
+//            if (ItemModel2.size() >= 1) {
                 for (int i = 0; i < ItemModel2.size(); i++) {
                     String Url3 = "https://car.yiche.com"+ItemModel2.get(i).select("a").attr("href");
                     System.out.println(Url3);
                     Document document3 = Jsoup.parse(new URL(Url3).openStream(),"UTF-8", Url3);
                     Elements Item1 = document3.select(".search-result-wrapper");
+                    System.out.println(Item1.size());
                     Elements Item2 = Item1.select(".search-result-list");
                     Elements Item3 = Item2.select(".search-result-list-item");
-
                     System.out.println(Item2.size());
                     System.out.println(Item3.size());
                     for (int j = 0; j < Item3.size(); j++) {
@@ -39,7 +40,9 @@ public class YicheSecond {
                     }
                 }
                 //https://car.yiche.com/xuanchegongju/?mid=9&page=2
-            }
+//            }else {
+//
+//            }
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
