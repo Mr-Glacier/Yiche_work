@@ -1,10 +1,7 @@
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.URL;
@@ -24,10 +21,7 @@ public class jison_work {
             //System.out.println(text1);
             String keyWord = URLDecoder.decode(text1, "utf-8");
            //System.out.println(keyWord);
-
             String maintext = keyWord.substring(26539, 146838);
-
-
             //System.out.println(miantext);
             JSONArray jsonArr = JSONArray.parseArray(maintext);
             System.out.println(jsonArr.size());
@@ -39,21 +33,21 @@ public class jison_work {
                     JSONObject tride = second.getJSONObject(j);
                     JSONArray four = tride.getJSONArray("carList");
                     //System.out.println("carList里面所含对象"+four.size());
-
                     for (int k = 0; k < four.size(); k++) {
                         JSONObject five = four.getJSONObject(k);
                         String VersionID = five.getString("id");
                         String VersionName = five.getString("name");
+                        String State = "停售";
                         //https://car.yiche.com/aodia3-3999/m152951/
                         String VersionURL = stopurl+"m"+five.getString("id")+"/";
                         System.out.println(VersionID);
                         System.out.println(VersionName);
                         System.out.println(VersionURL);
+                        System.out.println(State);
                         System.out.println("============");
                     }
                 }
             }
-
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
