@@ -2,6 +2,8 @@ import Dao.son_sqlserver;
 import Entity.Bean_T_YBrand;
 import Entity.Bean_T_YModel;
 import Entity.Bean_T_YVersion;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -48,7 +50,7 @@ public class YicheFirst {
                 Thread.sleep(500);
                 String Yicheurl2 = BrandURL;
                 Document document2 = Jsoup.parse(new URL(Yicheurl2).openStream(), "UTF-8", Yicheurl2);
-                System.out.println(document2.toString());
+                //System.out.println(document2.toString());
                 Element idEL = document2.getElementById("pagination-list");
                 Elements ItemModel = idEL.select(".pagenation-box.ssr-box");
                 Elements ItemModel1 = ItemModel.select(".link-list.pg-item");
@@ -78,11 +80,63 @@ public class YicheFirst {
                         beanTYModel.set_C_BrandID(BrandID);
                         ///sqlserverdao2.Method_Insert(beanTYModel);
                         System.out.println("----------------");
-                        System.out.println("\t"+"品牌名称: "+BrandID);
+                        System.out.println("\t"+"品牌名称: "+BrandName);
                         System.out.println("\t"+"车型名称: "+ModelName);
                         System.out.println("\t"+"车型ID: "+ModelID);
                         System.out.println("\t"+"车型URL: "+ModelURL);
                         System.out.println("=================");
+
+
+                        //
+
+                        Method_web M = new Method_web();
+                        String ParURL = ModelURL+"peizhi/";
+                        String JsonConent = M.Method_FindYCWB(ParURL);
+                        JSONObject config1 = JSONObject.parseObject(JsonConent);
+                        //System.out.println(config1.size());
+                        JSONArray configData = config1.getJSONArray("data");
+                        System.out.println(configData.size());
+                        for (int r = 0; r < configData.size(); r++) {
+//            Object obj = configData.get(i);
+//            JSONObject jsonObject = (JSONObject) obj;
+                            JSONObject config2 = configData.getJSONObject(r);
+                            String text1 = config2.getString("name");
+                            //System.out.println(text1);
+                            JSONArray config3 = config2.getJSONArray("items");
+                            //System.out.println(config3.size());
+                            for (int o = 0; o < config3.size(); o++) {
+                                JSONObject config4 = config3.getJSONObject(o);
+                                String carname = text1 + "__" + config4.getString("name");
+                                System.out.println(carname);
+                                JSONArray config5 = config4.getJSONArray("paramValues");
+                                System.out.println(config5.size());
+                                for (int p = 0; p < config5.size(); p++) {
+                                    JSONObject config6 = config5.getJSONObject(p);
+                                    String VersionID = config5.getJSONObject(p).getString("id");
+                                    JSONArray config7 = config6.getJSONArray("subList");
+                                    System.out.println("Begin____________________");
+                                    System.out.println("这是版本车辆ID: " + VersionID);
+
+                                    for (int q = 0; q < config7.size(); q++) {
+                                        if (((JSONObject) config7.get(q)).getString("desc") == null) {
+                                            String message1 = ((JSONObject) config7.get(q)).getString("value");
+                                            System.out.println(carname + "     " + message1);
+                                            System.out.println("==================================");
+                                        } else {
+                                            String message1 = ((JSONObject) config7.get(q)).getString("value");
+                                            String message2 = ((JSONObject) config7.get(q)).getString("desc");
+                                            System.out.println(message1);
+                                            System.out.println(message2);
+                                            System.out.println("==================================");
+                                        }
+
+                                    }
+                                }
+                                //System.out.println(VersionID);
+                            }
+                        }
+                        Thread.sleep(500);
+                        //
 
                         //进入版本查询
                         String VerUrl = ModelURL;
@@ -105,7 +159,7 @@ public class YicheFirst {
                                     String VersionID = VItem5.get(n).select("a").attr("data-id");
                                     String VersionURL = "https://car.yiche.com"+VItem5.get(n).select("a").attr("href");
                                     String VersionName = VItem5.get(n).select(".first").select("a").text();
-                                    System.out.println("\t"+"\t"+"车型信息: "+ModelID);
+                                    System.out.println("\t"+"\t"+"车型ID: "+ModelID);
                                     System.out.println("\t"+"\t"+"版本URL: "+VersionURL);
                                     System.out.println("\t"+"\t"+"版本名称: "+VersionName);
                                     System.out.println("\t"+"\t"+"版本ID: "+VersionID);

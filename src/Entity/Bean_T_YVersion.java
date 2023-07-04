@@ -47,11 +47,12 @@ public class Bean_T_YVersion {
     public void set_C_VersionURL(String C_VersionURL) {
         this.C_VersionURL = C_VersionURL;
     }
-    public String get_C_State(){
+
+    public String get_C_State() {
         return this.C_State;
     }
 
-    public void set_C_State(String C_State){
+    public void set_C_State(String C_State) {
         this.C_State = C_State;
     }
 }
