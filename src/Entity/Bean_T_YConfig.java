@@ -1,6 +1,23 @@
 package Entity;
 
 public class Bean_T_YConfig {
+    private int C_ID;
+
+    public int get_C_ID() {
+        return this.C_ID;
+    }
+
+    public void set_C_ID(int C_ID) {
+        this.C_ID = C_ID;
+    }
+
+    private String C_PID;
+    public void set_C_PID(String C_PID){
+        this.C_PID = C_PID;
+    }
+    public String get_C_PID(){
+        return this.C_PID;
+    }
     private String C_基本信息____车款名称;
     private String C_基本信息____厂商指导价;
     private String C_基本信息____城市参考价;
