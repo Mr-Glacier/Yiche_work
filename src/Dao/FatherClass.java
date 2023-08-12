@@ -91,10 +91,44 @@ public class FatherClass {
             System.out.println(ex.toString());
         }
     }
-
-
     //插入方法
+
     public void Method_Insert(Object obj) {
+        try {
+            Class I = obj.getClass();
+            //获取类方法
+            Method methods[] = obj.getClass().getDeclaredMethods();
+            System.out.println(methods.length);
+            String colueList = "";
+            String valueList = "";
+            for (int i = 0; i < methods.length; i++) {
+                if (methods[i].getName().equals("get_" + this.primaryKey)) {
+                    continue;
+                }
+                if (methods[i].getName().startsWith("get")) {
+                    String colueName = methods[i].getName().replace("get_", "");
+                    //String value = methods[i].invoke(obj).toString();
+                    colueList += colueName + ",";
+                    //分析出数值类型,String
+                    String value=methods[i].invoke(obj) == null ? "-" : methods[i].invoke(obj).toString();
+                    if (methods[i].getReturnType() == new String().getClass()) {
+                        valueList += "'" + value + "',";
+                    } else {
+                        valueList += value + ",";
+                    }
+                }
+            }
+            colueList = colueList.substring(0, colueList.length() - 1);
+            valueList = valueList.substring(0, valueList.length() - 1);
+            String sql = "INSERT INTO " + this.tableName + " (" + colueList + ") values (" + valueList + ")";
+            System.out.println(sql);
+            Method_I_U_D(sql);
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+
+    }
+    public void Method_Insert2(Object obj) {
         try {
             Class I = obj.getClass();
             //获取类方法
@@ -111,6 +145,7 @@ public class FatherClass {
                     String value = methods[i].invoke(obj).toString();
                     colueList += colueName + ",";
                     //分析出数值类型,String
+                    //String value=methods[i].invoke(obj) == null ? "-" : methods[i].invoke(obj).toString();
                     if (methods[i].getReturnType() == new String().getClass()) {
                         valueList += "'" + value + "',";
                     } else {

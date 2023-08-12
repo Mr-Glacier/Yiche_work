@@ -6,6 +6,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -49,23 +51,24 @@ public class Writer {
                         Elements Item4 = Item3.get(k).select(".cx-name.text-hover");
                         String ModelName = Item4.text();
                         String ModelURL = "https://car.yiche.com" + Item3.get(k).select("a").attr("href");
-//                        System.out.println("----------------");
-//                        System.out.println("\t" + "品牌名称: " + BrandName);
-//                        System.out.println("\t" + "车型名称: " + ModelName);
-//                        System.out.println("\t" + "车型ID: " + ModelID);
-//                        System.out.println("\t" + "车型URL: " + ModelURL);
-//                        System.out.println("=================");
+                        System.out.println("----------------");
+                        System.out.println("\t" + "品牌名称: " + BrandName);
+                        System.out.println("\t" + "车型名称: " + ModelName);
+                        System.out.println("\t" + "车型ID: " + ModelID);
+                        System.out.println("\t" + "车型URL: " + ModelURL);
+                        System.out.println("=================");
 
-//                        Method_web M = new Method_web();
-//                        String DownURL = ModelURL+"peizhi/";
-//                        System.out.println(DownURL);
-//                        String JsonConent = M.Method_FindYCWB(DownURL);
-//                        System.out.println(JsonConent);
-//                        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream("F:/A_JSON_File/"+ModelName.replace(":", "_")+"_Config.text", true), 662148);//165537
-//                        bufferedOutputStream.write(JsonConent.getBytes());
-//                        bufferedOutputStream.close();
-//                        Thread.sleep(300);
-//                        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                        Method_web M = new Method_web();
+                        String DownURL = ModelURL+"peizhi/";
+                        System.out.println(DownURL);
+                        String JsonConent = M.Method_FindYCWB(DownURL);
+                        System.out.println(JsonConent);
+                        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream("F:/A_StopConfig"+ModelName.replace(":", "_")+"_Config.text", true), 662148);//165537
+                        bufferedOutputStream.write(JsonConent.getBytes());
+                        bufferedOutputStream.close();
+
+                        Thread.sleep(300);
+                        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                     }
                 }
             }

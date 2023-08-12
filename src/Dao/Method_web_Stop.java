@@ -1,6 +1,9 @@
+package Dao;
+
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.LoadState;
-public class Method_web {
+
+public class Method_web_Stop {
 
 
 //    public static void main(String[] args){

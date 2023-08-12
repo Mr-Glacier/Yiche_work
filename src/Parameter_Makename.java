@@ -6,7 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.net.URL;
-
+//用于获取车型下各种配置名称,数量大约为37万行
 public class Parameter_Makename {
     public static void main(String[] args) {
         try{
@@ -51,7 +51,7 @@ public class Parameter_Makename {
 
                         Method_web M = new Method_web();
                         String ParURL = ModelURL + "peizhi/";
-                        //System.out.println(ParURL);
+                        System.out.println(ParURL);
                         String JsonConent = M.Method_FindYCWB(ParURL);
                         JSONObject config1 = JSONObject.parseObject(JsonConent);
                         Thread.sleep(100);
@@ -65,7 +65,7 @@ public class Parameter_Makename {
                                 for (int m = 0; m < ConfigItemsB.size(); m++) {
                                     JSONObject ConfigItemsC = ConfigItemsB.getJSONObject(m);
                                     String configName = titleName + "____" + ConfigItemsC.getString("name");
-                                    System.out.println(configName);
+                                    //System.out.println(configName);
                                 }
                             }
                         }
